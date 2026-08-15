@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";
 import api from "../services/api";
 import axios from "axios";
 
@@ -7,6 +8,7 @@ export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
@@ -101,14 +103,24 @@ export default function Register() {
             <label className="text-sm font-semibold text-[var(--font-heading)]">
               Password
             </label>
-            <input
-              type="password"
-              required
-              placeholder="Minimal 8 karakter"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="rounded-lg border border-[var(--line)] bg-[var(--card)] p-3 text-base outline-none transition-all focus:border-[var(--font-heading)] focus:ring-4 focus:ring-[rgba(107,75,33,0.12)]"
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                required
+                placeholder="Minimal 8 karakter"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full rounded-lg border border-[var(--line)] bg-[var(--card)] p-3 pr-11 text-base outline-none transition-all focus:border-[var(--font-heading)] focus:ring-4 focus:ring-[rgba(107,75,33,0.12)]"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute inset-y-0 right-3 flex items-center text-[var(--muted)] transition hover:text-[var(--font-heading)]"
+                aria-label={showPassword ? "Sembunyikan password" : "Tampilkan password"}
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
           </div>
 
           <button
