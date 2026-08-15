@@ -1,0 +1,58 @@
+@baseUrl= http://localhost:3000/api
+@token= eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtc3JiYzNheDAwMDBrc3Zud3Zvc3N6M2IiLCJyb2xlIjoiT3duZXIiLCJpYXQiOjE3ODY2MTQ2ODQsImV4cCI6MTc4Njc4NzQ4NH0.dYs1FhYRAz_U3b5Z3noI0jqOtZWrSPr8Q2rNpxE2bv4
+
+
+### Health check
+GET http://localhost:3000/api/health
+
+
+
+### test user
+### register user (Owner)
+POST {{baseUrl}}/users/register
+Content-Type: application/json
+
+{
+    "name": "Budi UMKM",
+    "email": "testing@example.com",
+    "password": "Budi1234"
+}
+
+### login user
+POST {{baseUrl}}/users/login
+Content-Type: application/json
+
+{
+    "email": "testing@example.com",
+    "password": "Budi1234"
+}
+
+### category
+### get category (publik)
+GET {{baseUrl}}/categories
+
+### membuat / create category (harusnya hanya admin yang bisa)
+POST {{baseUrl}}/categories
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "name": "makanan dan minuman",
+    "slug": "makanan-minuman"
+}
+
+
+### umkm
+### test create umkm
+POST {{baseUrl}}/umkms
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "categoryId": "cmsn8nn4w0000o0vn0o4a31jd",
+    "name": "Warung Makan Budi",
+    "slug": "warung-makan-budi",
+    "description": "Warung makan murah meriah",
+    "address": "Jalan Kediri No 1",
+    "phone": "081234567890"
+}

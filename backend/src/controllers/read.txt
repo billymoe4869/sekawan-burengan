@@ -1,0 +1,3 @@
+tugas utama Controller adalah menjadi "jembatan penghubung". Ia menerima request dari pengunjung (Route), 
+mengambil data yang dikirim, menyerahkannya ke bagian dapur (Service Layer) untuk diolah, 
+dan terakhir mengirimkan hasilnya kembali ke pengunjung

@@ -1,0 +1,1 @@
+file ini akan fokus melayani kebutuhan data (berbicara dengan Prisma) dan menjalankan aturan bisnis (misalnya mengecek apakah email sudah dipakai).

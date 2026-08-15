@@ -1,0 +1,102 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  Admin
+  Owner
+}
+
+enum UMKMStatus {
+  Pending
+  Published
+  Rejected
+  Suspended
+}
+
+model User {
+  id            String        @id @default(cuid())
+  name          String        
+  email         String        @unique
+  password      String
+  role          Role          @default(Owner)
+
+  umkms         UMKM[]
+
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model UMKM {
+  id            String        @id @default(cuid())
+  ownerId       String
+  categoryId    String
+
+  name          String
+  slug          String        @unique
+  description   String?
+
+  phone         String?
+  address       String?
+
+  latitude      Float?
+  longitude     Float?
+
+  imageUrl      String?
+
+  status        UMKMStatus    @default(Pending)
+
+  owner         User          @relation(fields: [ownerId], references: [id])
+  category      Category      @relation(fields: [categoryId], references: [id])
+
+  products      Product[]
+
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([ownerId])
+  @@index([categoryId])
+  @@index([status])
+}
+
+model Category {
+  id            String        @id @default(cuid())
+
+  name          String        @unique
+  slug          String        @unique
+
+  umkms         UMKM[]
+
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model Product {
+  id            String        @id @default(cuid())
+
+  umkmId        String        
+
+  name          String
+  description   String?
+  price         Decimal       @db.Decimal(12, 2)
+  imageUrl      String?
+
+  isActive      Boolean       @default(true)
+
+  umkm          UMKM          @relation(fields: [umkmId], references: [id], onDelete: Cascade)
+
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([umkmId])
+}

@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import "tailwindcss";
+
+
+:root {
+ --bg: #f9f6ee;
+ --bg-soft: #f3ead9;
+ --card: #fffdf9;
+ --card-alt: #f2e7d7;
+ --header: #d0c2a7;
+ --header-strong: #8f6a45;
+ --font-heading: #6b4b21;
+ --font-heading-strong: #4f3218;
+ --ink: #2d1d14;
+ --muted: #7d6757;
+ --line: #e7d9c6;
+ --accent: #c78d55;
+ --accent-strong: #9d6328;
+ --success: #2e7d32;
+ --warning: #c77a1d;
+ --danger: #b42318;
+}
+
+html {
+ scroll-behavior: smooth;
+}
+
+body {
+ font-family: 'Montserrat', sans-serif;
+ background: var(--bg);
+ color: var(--ink);
+}
+
+#root {
+ min-height: 100vh;
+ background: var(--bg);
+}
+
+::selection {
+ background: rgba(199, 141, 85, 0.25);
+}
+
+.font-brand {
+ font-family: "Bebas Neue", sans-serif;
+ font-weight: 500;
+ letter-spacing: 0.02em;
+}
+
+button,
+a,
+input,
+textarea,
+select {
+ transition: all 0.2s ease;
+}
+
+.theme-card {
+ background: var(--card);
+ border: 1px solid var(--line);
+ box-shadow: 0 12px 30px rgba(107, 75, 33, 0.06);
+}
+
+.theme-button-primary {
+ background: var(--font-heading);
+ color: white;
+ border: 1px solid transparent;
+}
+
+.theme-button-primary:hover {
+ background: var(--font-heading-strong);
+}
+
+.theme-button-secondary {
+ background: var(--card);
+ color: var(--font-heading);
+ border: 1px solid var(--line);
+}
+
+.theme-button-secondary:hover {
+ background: var(--bg-soft);
+}
+
+.theme-muted {
+ color: var(--muted);
+}
+
+.theme-accent {
+ color: var(--accent-strong);
+}
