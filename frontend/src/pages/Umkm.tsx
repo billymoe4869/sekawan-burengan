@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import api from "../services/api";
 import axios from "axios";
 
@@ -45,6 +46,18 @@ export default function UMKM({ initialSearch = "" }: UMKMProps) {
   const [searchTerm, setSearchTerm] = useState(() => initialSearch);
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [page, setPage] = useState(1);
+  const categoryListRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollCategories = (direction: "left" | "right") => {
+    const container = categoryListRef.current;
+    if (!container) return;
+
+    const scrollAmount = container.clientWidth * 0.75;
+    container.scrollBy({
+      left: direction === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth",
+    });
+  };
 
   // 1. Ambil daftar kategori sekali saja saat halaman dibuka (untuk tombol filter)
   useEffect(() => {
@@ -139,33 +152,56 @@ export default function UMKM({ initialSearch = "" }: UMKMProps) {
               />
             </div>
 
-            <div className="w-full overflow-x-auto pb-1 md:overflow-x-hidden md:pb-0 xl:w-auto xl:max-w-[60%] md:[&::-webkit-scrollbar]:hidden">
-              <div className="flex min-w-max items-center gap-2 whitespace-nowrap sm:gap-3">
-                <button
-                  onClick={() => handleCategoryChange("")}
-                  className={`rounded-xl px-4 py-3 text-sm font-semibold transition-colors md:px-5 md:py-3.5 ${
-                    selectedCategoryId === ""
-                      ? "bg-gray-900 text-white"
-                      : "border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
-                  }`}
-                >
-                  Semua
-                </button>
+            <div className="flex w-full items-center gap-2 xl:w-auto xl:max-w-[60%]">
+              <button
+                type="button"
+                onClick={() => scrollCategories("left")}
+                aria-label="Geser kategori ke kiri"
+                className="hidden h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-gray-300 bg-white text-gray-700 shadow-sm transition hover:bg-gray-50 md:flex"
+              >
+                <ChevronLeft size={18} />
+              </button>
 
-                {categories.map((cat) => (
+              <div
+                ref={categoryListRef}
+                className="w-full overflow-x-auto pb-1 md:pb-0 md:[&::-webkit-scrollbar]:hidden"
+              >
+                <div className="flex min-w-max items-center gap-2 whitespace-nowrap sm:gap-3">
                   <button
-                    key={cat.id}
-                    onClick={() => handleCategoryChange(cat.id)}
+                    onClick={() => handleCategoryChange("")}
                     className={`rounded-xl px-4 py-3 text-sm font-semibold transition-colors md:px-5 md:py-3.5 ${
-                      selectedCategoryId === cat.id
+                      selectedCategoryId === ""
                         ? "bg-gray-900 text-white"
                         : "border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
                     }`}
                   >
-                    {cat.name}
+                    Semua
                   </button>
-                ))}
+
+                  {categories.map((cat) => (
+                    <button
+                      key={cat.id}
+                      onClick={() => handleCategoryChange(cat.id)}
+                      className={`rounded-xl px-4 py-3 text-sm font-semibold transition-colors md:px-5 md:py-3.5 ${
+                        selectedCategoryId === cat.id
+                          ? "bg-gray-900 text-white"
+                          : "border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
+                      }`}
+                    >
+                      {cat.name}
+                    </button>
+                  ))}
+                </div>
               </div>
+
+              <button
+                type="button"
+                onClick={() => scrollCategories("right")}
+                aria-label="Geser kategori ke kanan"
+                className="hidden h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-gray-300 bg-white text-gray-700 shadow-sm transition hover:bg-gray-50 md:flex"
+              >
+                <ChevronRight size={18} />
+              </button>
             </div>
           </div>
         </div>
