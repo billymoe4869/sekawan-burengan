@@ -13,7 +13,7 @@ cloudinary.config({
 // helper untuk upload buffer file ke cloudinary secara async
 export const uploadToCloudinary = (
     fileBuffer: Buffer,
-    folder: string = "direktori-UMKM",
+    folder: string = "sekawan-burengan/misc",
 ): Promise<UploadApiResponse> => {
     return new Promise((resolve, reject) => {
         const stream = cloudinary.uploader.upload_stream(

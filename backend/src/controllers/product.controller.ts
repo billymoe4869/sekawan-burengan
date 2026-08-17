@@ -46,7 +46,7 @@ export const createProduct = async (
     let finalImageUrl = imageUrl ?? null;
 
     if (req.file) {
-      const uploadResult = await uploadToCloudinary(req.file.buffer, "product-images");
+      const uploadResult = await uploadToCloudinary(req.file.buffer, "sekawan-burengan/product-images");
       finalImageUrl = uploadResult.secure_url;
     }
 
@@ -157,7 +157,7 @@ export const updateProduct = async (
     }
 
     if (req.file) {
-      const uploadResult = await uploadToCloudinary(req.file.buffer, "product-images");
+      const uploadResult = await uploadToCloudinary(req.file.buffer, "sekawan-burengan/product-images");
       updateData.imageUrl = uploadResult.secure_url;
     }
 

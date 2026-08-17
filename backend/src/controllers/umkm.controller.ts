@@ -25,7 +25,7 @@ export const createUMKM = async (
     if (req.file) {
       const uploadResult = await uploadToCloudinary(
         req.file.buffer,
-        "umkm-logo",
+        "sekawan-burengan/umkm-logo",
       );
 
       imageUrl = uploadResult.secure_url;
