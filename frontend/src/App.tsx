@@ -11,6 +11,7 @@ import ManageCategories from "./pages/ManageCategories";
 import Layout from "./components/Layout";
 import UMKMDetail from "./pages/DetailUMKM";
 import Product from "./pages/Product";
+import About from "./pages/About";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="umkm" element={<UMKM />} />
+          <Route path="about" element={<About />} />
           <Route path="product" element={<Product />} />
           <Route path="products" element={<Product />} />
           <Route path="umkm/:id" element={<UMKMDetail />} />
